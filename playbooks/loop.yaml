@@ -1,0 +1,20 @@
+---
+- name: loop install my packaged
+  hosts: centos
+  become: yes
+
+  tasks:
+  - name: say
+    debug: msg={{ item }} 
+    loop:
+      - "tree"
+      - "htop"
+      - "tmux"
+
+  
+  - name: install my packaged
+    yum: name={{ item }} state=installed
+    loop:
+      - tree
+      - htop
+      - tmux
