@@ -1,0 +1,26 @@
+[staging_servers]
+
+#ubuntu1 ansible_host=178.154.229.216 ansible_user=user ansible_ssh_private_key_file=/home/user/.ssh/...
+#[staging_servers:var]
+#ansible_user=user
+#ansible_ssh_private_key_file=/home/user/.ssh/...
+
+ubuntu1 ansible_host=178.154.255.167
+
+
+[prod_servers]
+
+ubuntu2 ansible_host=178.154.206.215
+centos ansible_host=178.154.241.97
+
+
+
+#[staging_db]
+#192.168.1.1
+
+#[staging_web]
+#192.168.1.2
+
+#[staging_all:children]
+#staging_db
+#staging_web
