@@ -3,7 +3,7 @@ ansible ubuntu1 -m setup
 ansible all -m shell -a "uptime"
 ansible all -m command -a "pwd"
 ansible all -m copy -a "src=file.txt dest=/home/user"
-ansible all -m copy -a "src=file.txt dest=/ mode=777" -b #повысить права до root
+ansible all -m copy -a "src=file.txt dest=/ mode=777" -b 
 ansible all -m file -a "path=/home/user/file.txt state=absent"
 ansible all -m get_url -a "url=https://edu.postgrespro.ru/demo-small.zip dest=/home/user"
 ansible centos -m yum -a "name=httpd state=installed" -b
