@@ -9,3 +9,5 @@ ansible all -m get_url -a "url=https://edu.postgrespro.ru/demo-small.zip dest=/h
 ansible centos -m yum -a "name=httpd state=installed" -b
 ansible centos -m yum -a "name=httpd state=removed" -b
 ansible centos -m service -a "name=httpd state=started enabled=yes" -b
+
+ansible-playbook test-ping.yaml

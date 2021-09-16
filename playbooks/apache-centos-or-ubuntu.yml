@@ -1,0 +1,50 @@
+---
+- name: install nttpd server and upload my web page
+  hosts: all
+  become: yes
+
+  vars:
+    source_file: /home/user/ansible/web-site/index.html
+    destin_file: /var/www/html
+
+  tasks:
+  - name: check ansible_os_family
+    debug: var=ansible_os_family
+
+  - block:  #===block for redhat===  
+
+     - name: install httpd server for redhat
+       yum: name=httpd state=latest
+
+     - name: copy page to server
+       copy: src={{source_file}} dest={{destin_file}} mode=0555 
+       notify: restart httpd redhat
+
+     - name: start httpd and enable on the boot for redhat
+       service: name=httpd state=started enabled=yes
+
+    when: ansible_os_family == "RedHat" 
+
+
+  - block:  #===block for debian===   
+
+     - name: install httpd server for debian
+       apt: name=apache2 state=latest
+
+     - name: copy page to server
+       copy: src={{source_file}} dest={{destin_file}} mode=0555 
+       notify: restart httpd debian  
+
+     - name: start httpd and enable on the boot for debian
+       service: name=apache2 state=started enabled=yes  
+
+
+    when: ansible_os_family == "Debian"
+
+
+  handlers:
+  - name: restart httpd redhat
+    service: name=httpd state=restarted
+
+  - name: restart httpd debian
+    service: name=apache2 state=restarted

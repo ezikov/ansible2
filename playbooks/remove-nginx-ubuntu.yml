@@ -1,0 +1,15 @@
+---
+- name: remove nginx server
+  hosts: ubuntu1
+  become: yes
+
+  tasks:
+
+  - name: remove nginx server
+    apt: 
+      name: nginx 
+      state: absent
+      autoremove: yes
+      purge: yes
+
+

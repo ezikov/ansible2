@@ -1,0 +1,24 @@
+---
+- name: install nttpd server and upload my web page
+  hosts: centos
+  become: yes
+
+  vars:
+    source_file: /home/user/ansible/web-site/index.html
+    destin_file: /var/www/html
+
+  tasks:
+  - name: install httpd server
+    yum: name=httpd state=latest
+
+  - name: copy page to server
+    copy: src={{source_file}} dest={{destin_file}} mode=0555
+    notify: restart httpd
+    
+
+  - name: start httpd and enable on the boot
+    service: name=httpd state=started enabled=yes
+
+  handlers:
+  - name: restart httpd
+    service: name=httpd state=restarted
